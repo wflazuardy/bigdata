@@ -22,14 +22,9 @@ sc = SparkContext(conf = conf)
 
 # Load documents (one per line).
 rawData = sc.textFile("Berita.tsv")
-#print rawData
-#words = rawData.map(normalizeWords)
 fields = rawData.map(lambda x: x.split("\t"))
 documents = fields.map(lambda x: x[2].lower().split(" "))
-#words = str(documents)
-#print words
 
-#print documents
 #words = documents.flatmap(normalizeWords)
 documentID = fields.map(lambda x: x[0])
 
@@ -44,7 +39,7 @@ tf.cache()
 idf = IDF(minDocFreq=1).fit(tf)
 tfidf = idf.transform(tf)
 
-
+#input in command line using sys.argv
 word = sys.argv[1]
 wordx = normalizeWords(word)
 
